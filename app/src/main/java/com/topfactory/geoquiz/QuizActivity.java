@@ -11,20 +11,51 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
-    private TextView mQuizeView;
+    private Button mNextButton;
+    private Button mPreButton;
+    private TextView mQuestionTextView;
+
+    private Question[] mQuestionBank = new Question[] {
+        new Question(R.string.question_oceans, true),
+        new Question(R.string.question_mideast, false),
+        new Question(R.string.question_africa, false),
+        new Question(R.string.question_america, true),
+        new Question(R.string.question_asia, true)
+    };
+
+    private int mCurrentIndex = 0;
+
+    private void updateQuestion() {
+        int question = mQuestionBank[mCurrentIndex].getTextResId();
+        mQuestionTextView.setText(question);
+    }
+
+    private void checkAnswer(boolean userPressedTrue) {
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        int messageResId = 0;
+        if (userPressedTrue == answerIsTrue) {
+            messageResId = R.string.correct_toast;
+        } else {
+            messageResId = R.string.incorrect_toast;
+        }
+
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        /* UI */
+        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        updateQuestion();
+
         mTrueButton = (Button) findViewById(R.id.button_true);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(QuizActivity.this,
-                                R.string.correct_toast,
-                                Toast.LENGTH_SHORT).show();
+                checkAnswer(true);
             }
         });
 
@@ -32,13 +63,39 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(QuizActivity.this,
-                                R.string.incorrect_toast,
-                                Toast.LENGTH_SHORT).show();
+                checkAnswer(false);
             }
         });
 
-        mQuizeView = (TextView) findViewById(R.id.quiz_view);
+        mNextButton = (Button) findViewById(R.id.button_next);
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCurrentIndex < mQuestionBank.length-1) {
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
+                }else {
+                    updateQuestion();
+                    Toast.makeText(QuizActivity.this, R.string.last_question_toast, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mPreButton = (Button) findViewById(R.id.button_pre);
+        mPreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCurrentIndex > 0) {
+                    mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+                    updateQuestion();
+                }else {
+                    updateQuestion();
+                    Toast.makeText(QuizActivity.this, R.string.first_question_toast, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        updateQuestion();
 
     }
 }

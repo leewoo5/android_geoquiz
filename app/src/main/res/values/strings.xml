@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">GeoQuiz</string>
-    <string name="question_text">콘스탄티노플은 터키의 가장 큰 도시이다.</string>
-    <string name="true_button">TRUE</string>
-    <string name="false_button">FALSE</string>
+    <string name="true_button">참</string>
+    <string name="false_button">거짓</string>
     <string name="correct_toast">정답!</string>
     <string name="incorrect_toast">오답!</string>
+    <string name="button_next">다음</string>
+    <string name="button_pre">이전</string>
+    <string name="first_question_toast">첫 번째 문제입니다.</string>
+    <string name="last_question_toast">마지막 문제입니다.</string>
+    <string name="question_oceans">태평양은 대서양보다 더 크다.</string>
+    <string name="question_mideast">수에즈 운하는 홍해와 인도양을 연결한다.</string>
+    <string name="question_africa">나일강은 이집트에서 시작된다.</string>
+    <string name="question_america">아마존강은 아메리카에서 가장 긴 강이다.</string>
+    <string name="question_asia">바이칼 호수는 세계에서 가장 오래되고 가장 깊은 담수호이다.</string>
 </resources>
