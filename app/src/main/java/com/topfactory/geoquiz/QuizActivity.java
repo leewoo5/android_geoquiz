@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -99,31 +100,43 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         updateQuestion();
 
     }
 
+    //Debug Activity states
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause() called");
+        Log.d(TAG, "onPause() called : 화면에 보이나 일시중지");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume() called");
+        Log.d(TAG, "onResume() called : 화면에 보이며 포그라운드에 있고 실행중");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop() called");
+        Log.d(TAG, "onStop() called : 화면에서 볼 수 없음");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
+        Log.d(TAG, "onDestroy() called : 실행이 끝나고 소멸됨");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 }
