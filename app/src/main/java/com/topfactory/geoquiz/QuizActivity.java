@@ -1,5 +1,6 @@
 package com.topfactory.geoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPreButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
 
     private Question[] mQuestionBank = new Question[] {
@@ -100,6 +102,15 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(intent);
+            }
+        });
+
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
@@ -108,7 +119,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    //Debug Activity states
+    //Debug Activity state
     @Override
     protected void onPause() {
         super.onPause();
